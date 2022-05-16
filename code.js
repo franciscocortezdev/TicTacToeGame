@@ -12,36 +12,39 @@ let GameLive = false;
 
 
 function startGame() {
-    cells.forEach(cel=> cel.innerHTML = '');
-    playerWinner.classList.remove('winner');
-    playerWinner.classList.remove('empate');
-    playerWinner.innerHTML = 'Turno del jugador: X';
-    winCellsX = [];
-    winCellsO = [];
-    GameLive = true;
+  cells.forEach(cel=> cel.innerHTML = '');
+  playerWinner.classList.remove('winner');
+  playerWinner.classList.remove('empate');
+  playerWinner.innerHTML = 'Turno del jugador: X';
+  cellsActiveX.length = 0;
+  cellsActiveO.length = 0;
+  winCellsX = [];
+  winCellsO = [];
+  GameLive = true;
     
-        cells.forEach((cell)=>{
-            cell.addEventListener('click',(eCell)=>{
-                if(eCell.target.innerHTML == '' && GameLive == true){
-                    if (turnPlayer){
-                        cellsActiveX.push(Number(eCell.target.dataset.cell))
-                        eCell.target.innerHTML = 'X';
-                        playerTurn();
-                        evalGame();
-                        
-                    }else{  
-                        eCell.target.innerHTML = 'O';
-                        cellsActiveO.push(Number(eCell.target.dataset.cell))
-                        playerTurn();
-                        evalGame();
-                       
-                    }
-
-                }
-
-            }) 
+  cells.forEach((cell)=>{
+    cell.classList.remove('win');
+    cell.addEventListener('click',(eCell)=>{
+      if(eCell.target.innerHTML == '' && GameLive == true){
+        if (turnPlayer){
+          cellsActiveX.push(Number(eCell.target.dataset.cell))
+          eCell.target.innerHTML = 'X';
+          playerTurn();
+          evalGame();
             
-        })
+        }else{  
+          eCell.target.innerHTML = 'O';
+          cellsActiveO.push(Number(eCell.target.dataset.cell))
+          playerTurn();
+          evalGame();
+            
+        }
+
+      }
+
+    }) 
+      
+  })
 }
 
 
@@ -49,71 +52,88 @@ function startGame() {
 
 const evalGame = () =>{
     
-    for (let i = 0; i < winOptions.length; i++) {        
-            for (let j = 0; j < winOptions[i].length; j++) {
-                if(cellsActiveX.includes(winOptions[i][j])){
-                    winCellsX.push(winOptions[i][j])
-                }
-                if(cellsActiveO.includes(winOptions[i][j])){
-                    winCellsO.push(winOptions[i][j])
-                }
-            }
-        if(winCellsX.length == 3){
-            winGame();
-            endGame();
-            break;
-        } 
-        if(winCellsO.length == 3){
-            winGame();
-            endGame();
-            break;
-        } 
-        let totalCells = [...cellsActiveX, ...cellsActiveO];
-        if (totalCells.length == 9){
-            winGame();
-            endGame();
+  for (let i = 0; i < winOptions.length; i++) {        
+      for (let j = 0; j < winOptions[i].length; j++) {
+        if(cellsActiveX.includes(winOptions[i][j])){
+          winCellsX.push(winOptions[i][j])
         }
-
-
-        winCellsX = [];
-        winCellsO = [];
+        if(cellsActiveO.includes(winOptions[i][j])){
+          winCellsO.push(winOptions[i][j])
+        }
+      }
+    if(winCellsX.length == 3){
+      winGame();
+      endGame();
+      break;
+    } 
+    if(winCellsO.length == 3){
+      winGame();
+      endGame();
+      break;
+    } 
+    let totalCells = [...cellsActiveX, ...cellsActiveO];
+    if (totalCells.length == 9){
+      winGame();
+      endGame();
     }
+
+
+    winCellsX = [];
+    winCellsO = [];
+  }
     
 }
 
 
 const endGame = ()=>{
-    GameLive = false;
-    cellsActiveX.length = 0;
-    cellsActiveO.length = 0;
-    turnPlayer = true;
+  GameLive = false;
+  turnPlayer = true;
 
 }
 
 function playerTurn(){
     
-    if(turnPlayer){
-        playerWinner.innerHTML = 'Turno del jugador: O';
-        turnPlayer = !turnPlayer;
-    }else{
-        playerWinner.innerHTML = 'Turno del jugador: X';
-        turnPlayer = !turnPlayer;
-    }
+  if(turnPlayer){
+    playerWinner.innerHTML = 'Turno del jugador: O';
+    turnPlayer = !turnPlayer;
+  }else{
+    playerWinner.innerHTML = 'Turno del jugador: X';
+    turnPlayer = !turnPlayer;
+  }
 }
 
 const winGame = ()=>{
-    if (winCellsX.length == 3){
-        playerWinner.classList.add('winner');
-        playerWinner.innerHTML = 'Ganador jugador: X';
+  if (winCellsX.length == 3){
+    playerWinner.classList.add('winner');
+    playerWinner.innerHTML = 'Ganador jugador: X';
+    let cellWin1 = document.querySelector(`[data-cell='${winCellsX[0]}']`)
+    let cellWin2 = document.querySelector(`[data-cell='${winCellsX[1]}']`)
+    let cellWin3 = document.querySelector(`[data-cell='${winCellsX[2]}']`)
 
-    }else if(winCellsO.length == 3){
-        playerWinner.classList.add('winner');
-        playerWinner.innerHTML = 'Ganador jugador: O';
-    }else if(winCellsX.length<3 && winCellsO.length<3){
-        playerWinner.classList.add('empate');
-        playerWinner.innerHTML = 'Juego empatado';
+    cellWin1.classList.add('win');
+    cellWin2.classList.add('win');
+    cellWin3.classList.add('win');
 
-    }
+  }else if(winCellsO.length == 3){
+    playerWinner.classList.add('winner');
+    playerWinner.innerHTML = 'Ganador jugador: O';
+
+    let cellWin1 = document.querySelector(`[data-cell='${winCellsO[0]}']`)
+    let cellWin2 = document.querySelector(`[data-cell='${winCellsO[1]}']`)
+    let cellWin3 = document.querySelector(`[data-cell='${winCellsO[2]}']`)
+
+    cellWin1.classList.add('win');
+    cellWin2.classList.add('win');
+    cellWin3.classList.add('win');
+
+
+  }else if(winCellsX.length<3 && winCellsO.length<3){
+    playerWinner.classList.add('empate');
+    playerWinner.innerHTML = 'Juego empatado';
+
+      
+
+  }
 }
 
 
