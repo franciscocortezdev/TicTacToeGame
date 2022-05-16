@@ -28,12 +28,12 @@ function startGame() {
       if(eCell.target.innerHTML == '' && GameLive == true){
         if (turnPlayer){
           cellsActiveX.push(Number(eCell.target.dataset.cell))
-          eCell.target.innerHTML = 'X';
+          eCell.target.innerHTML = `<p data-P="${Number(eCell.target.dataset.cell)}">X</p>`;
           playerTurn();
           evalGame();
             
         }else{  
-          eCell.target.innerHTML = 'O';
+          eCell.target.innerHTML = `<p data-P="${Number(eCell.target.dataset.cell)}">O</p>`;
           cellsActiveO.push(Number(eCell.target.dataset.cell))
           playerTurn();
           evalGame();
@@ -102,13 +102,13 @@ function playerTurn(){
   }
 }
 
-const winGame = ()=>{
+const winGame = ()=>{ 
   if (winCellsX.length == 3){
     playerWinner.classList.add('winner');
     playerWinner.innerHTML = 'Ganador jugador: X';
-    let cellWin1 = document.querySelector(`[data-cell='${winCellsX[0]}']`)
-    let cellWin2 = document.querySelector(`[data-cell='${winCellsX[1]}']`)
-    let cellWin3 = document.querySelector(`[data-cell='${winCellsX[2]}']`)
+    let cellWin1 = document.querySelector(`[data-P="${winCellsX[0]}"]`)
+    let cellWin2 = document.querySelector(`[data-P="${winCellsX[1]}"]`)
+    let cellWin3 = document.querySelector(`[data-P="${winCellsX[2]}"]`)
 
     cellWin1.classList.add('win');
     cellWin2.classList.add('win');
@@ -118,9 +118,9 @@ const winGame = ()=>{
     playerWinner.classList.add('winner');
     playerWinner.innerHTML = 'Ganador jugador: O';
 
-    let cellWin1 = document.querySelector(`[data-cell='${winCellsO[0]}']`)
-    let cellWin2 = document.querySelector(`[data-cell='${winCellsO[1]}']`)
-    let cellWin3 = document.querySelector(`[data-cell='${winCellsO[2]}']`)
+    let cellWin1 = document.querySelector(`[data-P="${winCellsO[0]}"]`)
+    let cellWin2 = document.querySelector(`[data-P="${winCellsO[1]}"]`)
+    let cellWin3 = document.querySelector(`[data-P="${winCellsO[2]}"]`)
 
     cellWin1.classList.add('win');
     cellWin2.classList.add('win');
@@ -131,7 +131,7 @@ const winGame = ()=>{
     playerWinner.classList.add('empate');
     playerWinner.innerHTML = 'Juego empatado';
 
-      
+
 
   }
 }
