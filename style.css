@@ -14,8 +14,8 @@
 }
 
 body{
-  background: linear-gradient(to left, #EDAEF9,#81B1FA);
- 
+  background: radial-gradient( #81B1FA, #EDAEF9);
+  
   font-family: Arial, Helvetica, sans-serif;
 }
 .container{
