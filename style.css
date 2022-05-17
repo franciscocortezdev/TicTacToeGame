@@ -1,26 +1,151 @@
- body{
-     background-color: gray;
- }
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root{
+  --fondo: #609ea1;
+  --lines: #deb987;
+  --text: #ffffff;
+  --box: #383a39;
+  --red: #fb474a;
+  --blue: #0975b5;
+
+}
+
+body{
+  background: linear-gradient(to left, #EDAEF9,#81B1FA);
+ 
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+.head{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+
+.head_title{
+  
+  color: var(--text);
+  text-shadow: 0px 0px 20px var(--box);
+  font-size: 50px;
+  font-weight: bold;
+  padding: 20px;
+  
+
+}
+
+.head_player{
+  text-align: center;
+  color: var(--text);
+  text-shadow: 0px 0px 10px var(--box);
+  font-size: 25px;
+  font-weight: bold;
+
+}
+.player_Turn{
+  color: #000;
+  text-shadow: none;
+ 
+  margin: 10px;
+  font-size: 40px;
+}
+
+.btn_start{
+  
+  padding: 10px 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--box);
+  color: var(--text);
+  font-weight: bold;
+}
+.btn_start:hover{
+  transform: scale(1.1);
+}
+.btn_start:active{
+  transform: scale(1);
+}
+
 
 
 .game{
-    margin: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 10px;
+  
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  
+
 }
 
 .cell{
-    background-color: green;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
+    font-size: 50px;
+    font-weight: bold;
+    border: 3px solid var(--box);
+}
+.cell:nth-child(1){
+    border-top: none;
+    border-left: none;
+  
+}
+.cell:nth-child(2){
+  border-top: none;
+  
+
+}
+.cell:nth-child(3){
+  border-top: none;
+  border-right: none;
+ 
+}
+.cell:nth-child(4){
+  border-left: none;
+
+}
+.cell:nth-child(6){
+  border-right: none;
+
 }
 
+.cell:nth-child(7){
+  border-left: none;
+  border-bottom: none;
+}
+.cell:nth-child(8){
+  border-bottom: none;
+}
+.cell:nth-child(9){
+  border-right: none;
+  border-bottom: none;
+}
+
+.itemX{
+  color: var(--blue);
+  
+}
+.itemO{
+  color: var(--red);
+}
+
+
+
 .win{
-  animation: win 2s ease-in-out  infinite alternate forwards;
+  animation: win 1.5s ease-in-out  infinite alternate forwards;
 }
 
 @keyframes win {
